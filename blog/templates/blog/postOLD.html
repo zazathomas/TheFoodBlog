@@ -1,0 +1,53 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="col-md-8 col-md-offset-2 col-xs-12">
+			<div class="mainheading">
+
+				<!-- Begin Top Meta -->
+				<div class="row post-top-meta">
+					<div class="col-md-2">
+						<a href="{% url 'blog-post-author' pk=post.pk %}"><img class="author-thumb" src={{ post.author.profile.profile_picture.url }} alt="{{post.author}}"></a>
+					</div>
+					<div class="col-md-10">
+						<a class="link-dark" href="{% url 'blog-post-author' pk=post.pk %}">{{post.author}}</a>
+                        {% if post.date_published %}
+						<span class="post-date">{{ post.date_published }}</span><span class="dot"></span><span class="post-read">{{ post.read_time }} min read</span>
+					    {% else %}
+                            <a class="btn btn-default" href="{% url 'publish_post' pk=post.pk %}"> Publish</a>
+                        {% endif %}
+                    </div>
+				</div>
+				<!-- End Top Menta -->
+
+				<h1 class="posttitle">{{post.title}}</h1>
+                {% if post.author == request.user %}
+                <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}">Edit Post</a>
+                <a href="{% url 'delete_post' pk=post.pk %}">Delete Post</a>
+                {% endif %}
+
+			</div>
+
+			<!-- Begin Featured Image -->
+			<img class="featured-image img-fluid" src="{{ post.image.url }}" style="width:700px;height:500px;" alt="{{ post.title }}">
+			<!-- End Featured Image -->
+
+			<!-- Begin Post Content -->
+			<div class="article-post">
+				<p>{{ post.content|linebreaksbr }}</p>
+			</div>
+            <hr>
+            <h1>Comment section</h1>
+            <a class="btn btn-default" href="{% url 'add_comment_to_post' pk=post.pk %}">Add comment</a>
+            {% for comment in post.comments.all %}
+                <div class="comment">
+                    <div class="date">{{ comment.created_date }}</div>
+                    <strong>{{ comment.author }}</strong>
+                    <p>{{ comment.text|linebreaks }}</p>
+                    <hr>
+                </div>
+            {% empty %}
+                <p>No comments here yet :(</p>
+            {% endfor %}
+			<!-- End Post Content -->
+</div>
+{% endblock content %}

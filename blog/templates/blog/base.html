@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href={% static 'blog/img/favicon.ico' %}>
+<title>The Food Blog</title>
+<!-- Bootstrap core CSS -->
+<link href={% static 'blog/css/bootstrap.min.css' %} rel="stylesheet">
+<!-- Fonts -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link href="{% static 'blog/css/mediumish.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Begin Nav
+================================================== -->
+<nav class="navbar navbar-toggleable-md navbar-light bg-white fixed-top mediumnavigation">
+<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="container">
+	<!-- Begin Logo -->
+	<a class="navbar-brand" href="{% url 'blog-home' %}">
+	<img src={% static 'blog/img/logo.png' %} alt="logo">
+	</a>
+	<!-- End Logo -->
+	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		<!-- Begin Menu -->
+		<ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+			<a class="nav-link" href="">Hello, {{ user.username }}</a>
+			</li> {% endif %}
+			<li class="nav-item active">
+			<a class="nav-link" href="{% url 'blog-home' %}">Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'about-us' %}">About</a>
+			</li>
+            <li class="nav-item">
+			<a class="nav-link" href="{% url 'contact' %}">Contact</a>
+			</li>
+            {% if not user.is_authenticated %}
+			<li class="nav-item">
+			<a class="nav-link" href="{% url 'login' %}">Login</a>
+			</li>
+            <li class="nav-item">
+			<a class="nav-link" href="{% url 'signup' %}">Registration</a>
+			</li>
+            {% endif %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'post_new' %}">Add Post<span class="glyphicon-plus"></span></a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{% url 'blog-draft' %}">My Drafts</a>
+            </li>
+            <li class="nav-item">
+			<a class="nav-link" href="{% url 'profile' %}">Profile</a>
+			</li>
+            <li class="nav-item">
+			<a class="nav-link" href="{% url 'mfa:security_settings' %}">2FA Settings</a>
+			</li>
+            <li class="nav-item">
+			<a class="nav-link" href="{% url 'logout' %}">Log out</a>
+			</li>
+            {% endif %}
+		</ul>
+		<!-- End Menu -->
+	</div>
+</div>
+</nav>
+<!-- End Nav
+================================================== -->
+<div class="container" id="page-container">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+         <div id="content-wrap">
+         {% block content %}
+
+         {% endblock content %}
+         </div>
+
+
+<!-- Begin Footer
+	================================================== -->
+    <br>
+	<div class="footer" id="footer">
+		<p class="pull-left">
+			 Copyright &copy; 2020 The Food Blog
+		</p>
+		<p class="pull-right">
+			 Designed by <a target="_blank" href="">Zaza</a>
+		</p>
+		<div class="clearfix">
+		</div>
+	</div>
+	<!-- End Footer
+	================================================== -->
+
+
+
+
+
+
+
+</div>
+<!-- /.container -->
+
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src={% static 'blog/js/jquery.min.js' %}></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<script src={% static 'blog/js/bootstrap.min.js' %}></script>
+<script src={% static 'blog/js/ie10-viewport-bug-workaround.js' %}></script>
+
+</body>
+</html>

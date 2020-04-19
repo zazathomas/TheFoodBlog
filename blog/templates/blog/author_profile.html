@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8 col-md-offset-2">
+			<div class="mainheading">
+				<div class="row post-top-meta authorpage">
+					<div class="col-md-10 col-xs-12">
+						<h1>{{post.author.username}}</h1>
+						<span class="author-description">{{ post.author.profile.bio }}</span>
+						</div>
+					<div class="col-md-2 col-xs-12">
+						<img class="author-thumb" src="{{ post.author.profile.profile_picture.url }}?s=250&amp;d=mm&amp;r=x" alt="Sal">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

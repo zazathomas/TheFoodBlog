@@ -1,0 +1,5 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<p>Your session timed out!</p>
+<a href=" {% url 'login' %} ">Log in again if you wish to continue.</a>
+{% endblock %}

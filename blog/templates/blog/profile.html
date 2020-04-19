@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section">
+    <div class="media">
+        <img src="{{ user.profile.profile_picture.url }}" class="rounded-circle account-img" width="300" height="300" ">
+        <div class="media-body">
+            <h2 class="account-heading">Username: {{ user.username }}</h2>
+            <p class="text-secondary">FirstName: {{ user.first_name }}</p>
+            <p class="text-secondary">LastName: {{ user.last_name }}</p>
+            <p class="text-secondary">Email: {{ user.email }}</p>
+            <p class="text-secondary">Bio: {{ user.profile.bio }}</p>
+            <p class="text-secondary">Country: {{ user.profile.country }}</p>
+            <p class="text-secondary">Birthdate: {{ user.profile.birth_date }}</p>
+        </div>
+    </div>
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset class="form-group">
+        <legend class="border-bottom-0 mb-4"> Edit Profile Info</legend>
+        {{ user_form|crispy }}
+        {{ profile_form|crispy }}
+    </fieldset>
+    <div class="form-group">
+       <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+</form>
+    <a href="{% url 'password_change' %}" class="btn btn-outline-info"> Change password</a>
+</div>
+{% endblock %}
