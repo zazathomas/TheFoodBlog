@@ -5,7 +5,7 @@ bcrypt==3.1.7
 cffi==1.12.2
 cryptography==2.6.1
 dj-database-url==0.4.1
-Django==2.1.5
+Django==2.2.24
 django-admin-honeypot==1.1.0
 django-appconf==1.0.4
 django-argonauts==1.2.0
